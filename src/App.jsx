@@ -13,13 +13,11 @@ function App() {
   const handleAddToCart = (product) => {
     setCart((prevCart) => {
       const exists = prevCart.find((p) => p.id === product.id);
-
       if (exists) {
         return prevCart.map((p) =>
           p.id === product.id ? { ...p, qty: p.qty + 1 } : p
         );
       }
-
       return [...prevCart, { ...product, qty: 1 }];
     });
   };
@@ -38,34 +36,22 @@ function App() {
 
   const decreaseQty = (id) => {
     setCart((prev) =>
-      prev
-        .map((item) =>
-          item.id === id ? { ...item, qty: Math.max(1, item.qty - 1) } : item
-        )
+      prev.map((item) =>
+        item.id === id ? { ...item, qty: Math.max(1, item.qty - 1) } : item
+      )
     );
   };
 
   return (
     <>
-      <Navbar search={search} handleSearch={(e) => setSearch(e.target.value)} cartCount={cart.length} />
+      <Navbar search={search} handleSearch={(e) => setSearch(e.target.value)} cartCount={cart.length}/>
       <Routes>
-        <Route path="/" element={<Product search={search} handleAddToCart={handleAddToCart} />}></Route>
+        <Route path="/" element={<Product search={search} handleAddToCart={handleAddToCart}/>}/>
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route
-          path="/cart"
-          element={
-            <Cart
-              cart={cart}
-              handleRemoveFromCart={handleRemoveFromCart}
-              increaseQty={increaseQty}
-              decreaseQty={decreaseQty}
-            />
-          }
-        />
+        <Route path="/cart" element={<Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart} increaseQty={increaseQty} decreaseQty={decreaseQty}/>}/>
       </Routes>
     </>
   );
 }
 export default App;
-
